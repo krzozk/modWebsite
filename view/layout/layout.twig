@@ -1,0 +1,42 @@
+{{ docType() }}
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        {{ headTitle( translate('header_module_name') ) }}
+        {{ headMeta().appendName('viewport', 'width=device-width, initial-scale=1.0') | raw }}
+
+        {% block styles %}
+            <link href="/img/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+            <link href="/css/bootstrap.min.css" media="screen" rel="stylesheet" type="text/css">
+            <link href="/css/bootstrap-responsive.min.css" media="screen" rel="stylesheet" type="text/css">
+        {% endblock %}
+
+        {% block scripts %}
+            <!--[if lt IE 9]><script type="text/javascript" src="/js/lib/html5.js"></script><![endif]-->
+        {% endblock %}
+    </head>
+    <body>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <div class="headerlinks text-right">
+                        {% if user is defined %}
+                        <a href="/logout" class="btn btn-primary headeroption">{{ translate('header_logout') }}</a>
+                        {% else %}
+                        <a href="/register" class="btn btn-primary headeroption">{{ translate('header_create_account') }}</a>
+                        <a href="/login" class="btn btn-primary headeroption">{{ translate('header_login') }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            {% block content %}{% endblock %}
+            <hr>
+            <footer>
+                <p>Global Lynx &copy; 2013</p>
+            </footer>
+        </div> <!-- /container -->
+    </body>
+</html>

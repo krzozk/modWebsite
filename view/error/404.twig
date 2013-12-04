@@ -1,0 +1,82 @@
+<h1>{{ translate('A 404 error occurred') }}</h1>
+<h2>{{ message }}</h2>
+
+{%  if reason is defined and reason is not null %}
+
+    {% if reason == 'error-controller-cannot-dispatch' %}
+        {{ translate('The requested controller was unable to dispatch the request.') }}
+    {% elseif reason == 'error-controller-not-found' %}
+        {{ translate('The requested controller could not be mapped to an existing controller class.') }}
+    {% elseif reason == 'error-controller-invalid' %}
+        {{ translate('The requested controller was not dispatchable.') }}
+    {% elseif reason == 'error-router-no-match' %}
+        {{ translate('The requested URL could not be matched by routing.') }}
+    {% else %}
+        {{ translate('We cannot determine at this time why a 404 was generated.') }}
+    {% endif %}
+
+{% endif %}
+
+{% if controller is defined and controller is not null %}
+    <dl>
+        <dt>{{ translate('Controller') }}:</dt>
+        <dd>{{ escapeHtml(controller) }} ?>
+        {% if controller_class is defined and controller_class is not null and controller_class != controller %}
+            ({{ translate('resolves to ') }} {{ controller_class | e }})
+        {% endif %}
+        </dd>
+    </dl>
+{% endif %}
+
+{% if display_exceptions is defined and display_exceptions is not null %}
+
+    {% if exception is defined and exception is not null %}
+
+        <hr/>
+        <h2>{{ translate('Additional information') }}:</h2>
+        <h3>{{ exception }}</h3>
+        <dl>
+            <dt>{{ translate('File') }}:</dt>
+            <dd><pre class="prettyprint linenums">{{ exception.getFile() }}:{{ exception.getLine() }}</pre></dd>
+
+            <dt>{{ translate('Message') }}:</dt>
+            <dd><pre class="prettyprint linenums">{{ exception.getMessage() }}</pre></dd>
+
+            <dt>{{ translate('Stack trace') }}:</dt>
+            <dd><pre class="prettyprint linenums">{{ exception.getTraceAsString() }}</pre></dd>
+        </dl>
+        {% set errors = exception.getPrevious() %}
+        {% if errors is defined %}
+            <hr/>
+            <h2>{{ translate('Previous exceptions') }}:</h2>
+            <ul class="unstyled">
+                {% for e in errors %}
+                    <li>
+                        <h3>{{ e }}</h3>
+                        <dl>
+                            <dt>{{ translate('File') }}:</dt>
+                            <dd>
+                                <pre class="prettyprint linenums">{{ e.getFile() }}:{{ e.getLine() }}</pre>
+                            </dd>
+                            <dt>{{ translate('Message') }}:</dt>
+                            <dd>
+                                <pre class="prettyprint linenums">{{ e.getMessage() }}</pre>
+                            </dd>
+                            <dt>{{ translate('Stack trace') }}:</dt>
+                            <dd>
+                                <pre class="prettyprint linenums">{{ e.getTraceAsString() }}</pre>
+                            </dd>
+                        </dl>
+                    </li>
+                    {% set errors = e.getPrevious() %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+    {% else %}
+
+        <h3>{{ translate('No Exception available') }}</h3>
+
+    {% endif %}
+
+{% endif %}

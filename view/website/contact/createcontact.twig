@@ -1,0 +1,51 @@
+{% extends "layout/layout" %}
+{% block scripts %}
+    {{ parent() }}
+    <script type="text/javascript" data-main="/js/website/main.js" src="/js/lib/require/require.min.js"></script>
+{% endblock %}
+{% block content %}
+<div data-ng-controller="ContactCreateController" class="content well well-small">
+    <div>    	
+    	<div class="page-header">
+        	<h2>        	
+        	{{ translate('Create Contact') }}
+        	</h2>
+        </div>                
+        <div class="alert alert-success" style="display:none;" id="msgsuccess">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ translate('The contact was created successfully.') }}
+       </div>          
+        {% do form.prepare() %}
+        {{ form().openTag( form ) | raw }}
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><span class="label label-primary">{{ translate('Name') }}</span></label>
+			<div class="col-sm-5">
+				{{ formElement( form.get('name').setAttribute('data-ng-model', 'contact.name') ) }}
+                <p>{{ formElementErrors( form.get('name'), {'class':'unstyled text-error'} ) }}</p>
+			</div>
+		</div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label"><span class="label label-primary">{{ translate('Mail') }}</span></label>
+            <div class="col-sm-5">
+                {{ formElement( form.get('email').setAttribute('data-ng-model', 'contact.email') ) }}
+                <p>{{ formElementErrors( form.get('email'), {'class':'unstyled text-error'} ) }}</p>
+            </div>
+        </div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label"><span class="label label-primary">{{ translate('Comments') }}</span></label>
+			<div class="col-sm-5">
+				{{ formElement( form.get('comment').setAttribute('data-ng-model', 'contact.comment') ) }}
+                <p>{{ formElementErrors( form.get('comment'), {'class':'unstyled text-error'} ) }}</p>
+			</div>
+		</div>
+
+		{{ msg }}
+		<div class="form-group">
+			<div class="col-sm-5">				
+				{{ formElement( form.get('create').setAttribute('data-ng-disabled', '!createcontact.$valid') ) }}
+			</div>
+		</div>
+        {{ form().closeTag() | raw }}
+    </div>
+</div>
+{% endblock %}

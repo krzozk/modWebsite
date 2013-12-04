@@ -1,0 +1,40 @@
+
+<div class="container-fluid">
+    <div class="row-fluid">
+
+        <h2>Contact Us</h2>
+        <!-- Scripts -->
+        {% block scripts %}
+
+            <script type="text/javascript" src="http://stealthcat/js/lib/jquery/jquery.min.js"></script>
+            <script type="text/javascript" src="http://stealthcat/js/lib/bootstrap.min.js"></script>
+            <script type="text/javascript" src="http://stealthcat/js/lib/html5.js"></script>
+
+            <script type="text/javascript">
+
+                $(document).ready(function()
+                {
+
+                });
+
+            </script>
+
+        {% endblock %}
+
+        <!--<form id="buy-form" method="post" action="javascript:" onsubmit="return false;">-->
+        <form id="contact-form" method="post" action="sendContact" >
+            <p class="form-label">Name:</p>
+            <input class="text" name="name" id="name" spellcheck="false"></input>
+
+            <p class="form-label">Email Address:</p>
+            <input class="text" name="email" id="email" spellcheck="false"></input>
+
+            <p class="form-label">Comments:</p>
+            <input class="text" name="comment" id="comment" autocomplete="on"></input>
+
+            <input name="submit-button" id="submit-button" type="submit" value="Submit"></input>
+        </form>
+
+    </div>
+</div>
+
