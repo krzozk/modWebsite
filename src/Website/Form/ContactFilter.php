@@ -48,7 +48,7 @@ class ContactFilter extends InputFilter
             'required'=> true,
             'validators' => array(
                 array(
-                    'name' => 'Comment',
+                    'name' => 'NotEmpty',
                     'options' => array(
                         'messages' => array(
                             \Zend\Validator\NotEmpty::STRING =>
@@ -64,6 +64,7 @@ class ContactFilter extends InputFilter
                     'name' => 'StringTrim'
                 )
             )
-        ));*/
+        ));
+*/
     }
 }
